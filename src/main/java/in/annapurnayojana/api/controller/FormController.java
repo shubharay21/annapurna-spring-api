@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import in.annapurnayojana.api.dto.FormSubmissionPayload;
 import in.annapurnayojana.api.repository.FamilyRepository;
 import in.annapurnayojana.api.service.DraftService;
+import in.annapurnayojana.api.service.FormPayloadValidator;
 import in.annapurnayojana.api.service.FormSubmissionStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,16 @@ public class FormController {
     private final FormSubmissionStrategy submissionStrategy;
     private final FamilyRepository familyRepository;
     private final ObjectMapper objectMapper;
+    private final FormPayloadValidator formPayloadValidator;
 
     public FormController(DraftService draftService, FormSubmissionStrategy submissionStrategy, 
-                          FamilyRepository familyRepository, ObjectMapper objectMapper) {
+                          FamilyRepository familyRepository, ObjectMapper objectMapper,
+                          FormPayloadValidator formPayloadValidator) {
         this.draftService = draftService;
         this.submissionStrategy = submissionStrategy;
         this.familyRepository = familyRepository;
         this.objectMapper = objectMapper;
+        this.formPayloadValidator = formPayloadValidator;
     }
 
     private String getMobile(Authentication authentication) {
@@ -131,8 +135,13 @@ public class FormController {
 
         try {
             FormSubmissionPayload payload = objectMapper.readValue(json, FormSubmissionPayload.class);
-            if (payload == null || !payload.isAgreed()) {
-                return ResponseEntity.badRequest().body(Map.of("message", "You must agree to the declarations to submit."));
+            if (payload == null) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Payload is empty."));
+            }
+
+            Map<String, java.util.List<String>> validationErrors = formPayloadValidator.validate(payload);
+            if (!validationErrors.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Validation failed", "errors", validationErrors));
             }
 
             payload.setApplicationId(appId);

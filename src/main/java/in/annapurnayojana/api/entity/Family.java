@@ -68,7 +68,8 @@ public class Family {
     private boolean isAgreed;
 
     // Status
-    @Column(name = "application_status", nullable = false)
+    // @Column(name = "application_status", nullable = false)
+    @Column(name = "status", nullable = false)
     private String status = "DRAFT";
 
     public void setWard(Integer ward) {
