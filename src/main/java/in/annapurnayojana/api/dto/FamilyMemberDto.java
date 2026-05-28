@@ -29,6 +29,8 @@ public class FamilyMemberDto {
     private String gender;
     private String digitalRationCardNo;
     private String digitalRationCardType;
+    private Boolean hasDigitalRationCard;
+    private Boolean liftingMonthlyRation;
     private String socialCategory;
     
     @Pattern(regexp = "^\\d{9,18}$", message = "Bank Account number must be between 9 and 18 digits.")

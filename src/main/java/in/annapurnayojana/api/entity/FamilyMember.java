@@ -48,6 +48,9 @@ public class FamilyMember {
     private String digitalRationCardNo;
     private String digitalRationCardType;
     private String socialCategory;
+    
+    private Boolean hasDigitalRationCard;
+    private Boolean liftingMonthlyRation;
 
     // Point 2: Bank
     private String bankAccountNo;

@@ -84,6 +84,8 @@ public class DirectDbSubmissionStrategy implements FormSubmissionStrategy {
                 newMember.setGender(m.getGender());
                 newMember.setDigitalRationCardNo(m.getDigitalRationCardNo());
                 newMember.setDigitalRationCardType(m.getDigitalRationCardType());
+                newMember.setHasDigitalRationCard(m.getHasDigitalRationCard());
+                newMember.setLiftingMonthlyRation(m.getLiftingMonthlyRation());
                 newMember.setSocialCategory(m.getSocialCategory());
                 newMember.setBankAccountNo(m.getBankAccountNo());
                 newMember.setIfscCode(m.getIfscCode());
