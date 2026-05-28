@@ -1,0 +1,60 @@
+server:
+  port: 5002
+
+spring:
+  application:
+    name: annapurna-spring-api
+
+  datasource:
+    url: jdbc:postgresql://10.176.56.59:5432/apy_db_uat
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # In production, use validate or none with Flyway/Liquibase
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        default_schema: dbt_apy
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+app:
+  jwt:
+    secret: AnnapurnaYojana-SuperSecretKey-2026-ChangeInProduction!
+    issuer: AnnapurnaYojana
+    audience: AnnapurnaYojanaUsers
+    expirationMinutes: 60
+    refreshExpirationDays: 7
+
+  otp:
+    expirySeconds: 300
+    mockMode: true
+
+  captcha:
+    expirySeconds: 120
+
+  features:
+    useRabbitMq: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
