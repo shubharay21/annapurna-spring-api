@@ -6,7 +6,8 @@ spring:
     name: annapurna-spring-api
 
   datasource:
-    url: jdbc:postgresql://10.176.56.59:5432/apy_db_uat
+    # url: jdbc:postgresql://10.176.56.59:5432/apy_db_uat
+    url: jdbc:postgresql://localhost:5432/annapurna
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

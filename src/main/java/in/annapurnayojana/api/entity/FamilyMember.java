@@ -22,7 +22,8 @@ public class FamilyMember {
     @JoinColumn(name = "family_id", nullable = false)
     private Family family;
 
-    @Column(name = "is_hof", nullable = false)
+    // @Column(name = "is_hof", nullable = false)
+    @Column(name = "is_ho_f", nullable = false)
     private boolean isHoF;
     
     @ManyToOne(fetch = FetchType.LAZY)
